@@ -11,6 +11,8 @@ services:
     environment:
       - REACT_APP_API_URL=http://localhost:9002
       - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+      - FAST_REFRESH=true
       - WDS_SOCKET_PORT=9001
     depends_on:
       - ai

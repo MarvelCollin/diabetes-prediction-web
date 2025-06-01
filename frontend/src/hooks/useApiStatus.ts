@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { apiService } from '../utils/api';
 
-// Hook to check if the API is available
 export const useApiStatus = () => {
   const [isConnected, setIsConnected] = useState<boolean | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -22,7 +21,6 @@ export const useApiStatus = () => {
 
     checkApiStatus();
 
-    // Check API status every 30 seconds
     const interval = setInterval(checkApiStatus, 30000);
     return () => clearInterval(interval);
   }, []);

@@ -1,4 +1,3 @@
-// Type definitions for the application
 
 export interface DiabetesFormData {
   pregnancies: number;

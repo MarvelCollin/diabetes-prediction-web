@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { DiabetesFormData } from '../types';
+import { DiabetesFormData, PredictionResponse } from '../types/index';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:9002';
 
@@ -10,12 +10,6 @@ const apiClient = axios.create({
     'Accept': 'application/json'
   }
 });
-
-interface PredictionResponse {
-  prediction: boolean;
-  probability: number;
-  risk_level: string;
-}
 
 export const apiService = {
   checkHealth: async (): Promise<boolean> => {

@@ -1,6 +1,5 @@
 import { DiabetesFormData } from '../types';
 
-// Template data for quick testing the form
 export const formTemplates: Record<string, DiabetesFormData> = {
   "Healthy Profile": {
     pregnancies: 0,

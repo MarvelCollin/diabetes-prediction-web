@@ -1,11 +1,7 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
+import { LayoutProps } from '../../types/index';
 import Header from './Header';
-import Footer from './Footer';
 import ApiStatus from '../common/ApiStatus';
-
-interface LayoutProps {
-  children: ReactNode;
-}
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
@@ -17,7 +13,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <div className="fixed bottom-4 right-4">
         <ApiStatus />
       </div>
-      <Footer />
     </div>
   );
 };
