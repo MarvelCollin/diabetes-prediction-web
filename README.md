@@ -97,15 +97,8 @@ This will start both the frontend and backend services, accessible at:
 4. Review your results with visualized metrics and recommendations
 5. Take action based on the personalized health suggestions
 
-## License
+## Application Screenshoots
+![image](https://github.com/user-attachments/assets/8d7e7106-691c-4a98-872a-2d0ec94847b9)
+![image](https://github.com/user-attachments/assets/70cd278e-d2be-450a-a235-59998cffb8e8)
+![image](https://github.com/user-attachments/assets/8c41be92-a41d-4ca0-b2fe-b904f047f7a8)
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Contributors
-
-- [Your Name](https://github.com/yourusername)
-
-## Acknowledgments
-
-- Diabetes dataset from the National Institute of Diabetes and Digestive and Kidney Diseases
-- UI design inspired by modern healthcare applications
