@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "9001:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:9002
+    depends_on:
+      - ai
+    networks:
+      - app-network
+
+  ai:
+    build: ./ai
+    ports:
+      - "9002:5000"
+    environment:
+      - FLASK_ENV=production
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
