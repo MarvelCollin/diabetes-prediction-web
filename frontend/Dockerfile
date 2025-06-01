@@ -8,8 +8,10 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build
-
 EXPOSE 3000
 
-CMD ["npm", "start"]
+ENV NODE_ENV=development
+ENV CHOKIDAR_USEPOLLING=true
+ENV NODE_OPTIONS=--openssl-legacy-provider
+
+CMD ["npm", "run", "start"]

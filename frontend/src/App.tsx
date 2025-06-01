@@ -11,7 +11,7 @@ function App() {
   return (
     <Router>
       <Layout>
-        <AnimatePresence mode="wait">
+        <AnimatePresence>
           <Routes>
             <Route path="/" element={<Welcome />} />
             <Route path="/form" element={<DiabetesForm />} />

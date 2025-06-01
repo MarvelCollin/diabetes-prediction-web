@@ -14,4 +14,6 @@ export interface DiabetesFormData {
 export interface PredictionResult {
   probability: number;
   prediction: boolean;
+  formData: DiabetesFormData;
+  risk_level?: string;
 } 

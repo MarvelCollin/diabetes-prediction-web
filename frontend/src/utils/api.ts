@@ -1,10 +1,8 @@
 import axios from 'axios';
 import { DiabetesFormData } from '../types';
 
-// Get the API URL from environment variables or use default
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:9002';
 
-// Configure axios
 const apiClient = axios.create({
   baseURL: API_URL,
   headers: {
@@ -20,7 +18,6 @@ interface PredictionResponse {
 }
 
 export const apiService = {
-  // Health check endpoint
   checkHealth: async (): Promise<boolean> => {
     try {
       const response = await apiClient.get('/health');
@@ -31,12 +28,10 @@ export const apiService = {
     }
   },
 
-  // Prediction endpoint
   predictDiabetes: async (data: DiabetesFormData): Promise<PredictionResponse> => {
     try {
       console.log('Sending data to API:', JSON.stringify(data));
       
-      // Make sure numeric values are actually numbers, not strings
       const processedData = {
         pregnancies: Number(data.pregnancies),
         glucose: Number(data.glucose),
@@ -54,8 +49,6 @@ export const apiService = {
     } catch (error: any) {
       console.error('Prediction failed:', error);
       if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
         console.error('Error data:', error.response.data);
         console.error('Error status:', error.response.status);
         console.error('Error headers:', error.response.headers);

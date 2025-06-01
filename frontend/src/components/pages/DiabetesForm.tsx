@@ -17,14 +17,14 @@ const DiabetesForm: React.FC = () => {
     setError(null);
     
     try {
-      // Call the API to get prediction
       const result = await apiService.predictDiabetes(data);
       
-      // Navigate to results page with the prediction data
       navigate('/results', { 
         state: { 
           probability: result.probability,
-          prediction: result.prediction
+          prediction: result.prediction,
+          formData: data,
+          risk_level: result.risk_level
         } 
       });
     } catch (error) {

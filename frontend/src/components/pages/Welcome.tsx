@@ -23,7 +23,7 @@ const Welcome: React.FC = () => {
           animate={{ scale: 1 }}
           transition={{ delay: 0.4, duration: 0.5 }}
         >
-          Welcome to Diabetes Prediction App
+          Welcome to Diabetes Prediction App (Fixed & Working)
         </motion.h1>
         <motion.p 
           className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto"

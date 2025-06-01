@@ -7,14 +7,12 @@ import pandas as pd
 import logging
 from sklearn.ensemble import RandomForestClassifier
 
-# Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app)
 
-# Load the pre-trained diabetes prediction model
 class DiabetesPredictor:
     def __init__(self):
         self.model = None
@@ -28,18 +26,13 @@ class DiabetesPredictor:
             
             logger.info(f"Loaded data type: {type(data)}")
             
-            # Check if the loaded object is already a model with predict method
             if hasattr(data, 'predict'):
                 self.model = data
                 logger.info("Loaded model directly from file")
-            # If it's a numpy array, we need to create a model and fit it
             elif isinstance(data, np.ndarray):
                 logger.info("Loaded numpy array, creating model from array")
-                # If the data is a trained model weights array, let's create a new model
                 clf = RandomForestClassifier(n_estimators=100, random_state=42)
-                # Load the CSV data to fit the model
                 try:
-                    # Try to load the training data from CSV
                     csv_path = os.path.join(os.path.dirname(__file__), "train.csv")
                     if os.path.exists(csv_path):
                         df = pd.read_csv(csv_path)
@@ -49,11 +42,9 @@ class DiabetesPredictor:
                         self.model = clf
                         logger.info("Created model from CSV data")
                     else:
-                        # If no CSV, use the ndarray if it's properly shaped for a RandomForestClassifier
                         raise FileNotFoundError("Training data CSV not found")
                 except Exception as e:
                     logger.error(f"Error fitting model from CSV: {str(e)}")
-                    # Fallback to creating a simple model
                     self._create_fallback_model()
             else:
                 logger.error(f"Unexpected data type: {type(data)}")
@@ -68,7 +59,6 @@ class DiabetesPredictor:
         """Create a fallback model when loading fails"""
         logger.info("Creating a fallback model")
         self.model = RandomForestClassifier(n_estimators=100, random_state=42)
-        # Generate sample data and train fallback model
         np.random.seed(42)
         n_samples = 1000
         X = np.random.rand(n_samples, 8)
@@ -77,7 +67,6 @@ class DiabetesPredictor:
     
     def predict(self, features):
         try:
-            # Normalize features (you should use the same normalization as training)
             features_array = np.array(features).reshape(1, -1)
             prediction = self.model.predict(features_array)
             probability = self.model.predict_proba(features_array)[0][1]
@@ -88,7 +77,6 @@ class DiabetesPredictor:
             logger.error(f"Error during prediction: {str(e)}")
             raise
 
-# Initialize the predictor
 predictor = DiabetesPredictor()
 
 @app.route('/health', methods=['GET'])
@@ -98,11 +86,9 @@ def health_check():
 @app.route('/predict', methods=['POST'])
 def predict_diabetes():
     try:
-        # Log the incoming request
         logger.info(f"Received request: {request.method} {request.path}")
         logger.info(f"Request headers: {request.headers}")
         
-        # Get the data from the request
         data = request.get_json()
         if data is None:
             logger.error("No JSON data received")
@@ -110,17 +96,14 @@ def predict_diabetes():
             
         logger.info(f"Received data: {data}")
         
-        # Extract features from the request
         required_fields = ['pregnancies', 'glucose', 'bloodPressure', 'skinThickness', 
                          'insulin', 'bmi', 'diabetesPedigreeFunction', 'age']
         
-        # Check if all required fields are present
         missing_fields = [field for field in required_fields if field not in data]
         if missing_fields:
             logger.error(f"Missing required fields: {missing_fields}")
             return jsonify({'error': f'Missing required fields: {missing_fields}'}), 400
         
-        # Extract and convert to float
         try:
             features = [
                 float(data.get('pregnancies', 0)),
@@ -138,10 +121,8 @@ def predict_diabetes():
             
         logger.info(f"Extracted features: {features}")
         
-        # Make prediction
         prediction, probability = predictor.predict(features)
         
-        # Prepare response
         response = {
             'prediction': bool(prediction),
             'probability': probability,

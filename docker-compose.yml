@@ -5,8 +5,13 @@ services:
     build: ./frontend
     ports:
       - "9001:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
     environment:
       - REACT_APP_API_URL=http://localhost:9002
+      - CHOKIDAR_USEPOLLING=true
+      - WDS_SOCKET_PORT=9001
     depends_on:
       - ai
     networks:
@@ -16,8 +21,10 @@ services:
     build: ./ai
     ports:
       - "9002:5000"
+    volumes:
+      - ./ai:/app
     environment:
-      - FLASK_ENV=production
+      - FLASK_ENV=development
     networks:
       - app-network
 
